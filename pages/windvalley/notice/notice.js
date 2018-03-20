@@ -22,7 +22,7 @@ define([
 	                userId: yufp.session.userId,
 	                iconDialogVisible:false,
 	                queryFields: [
-                        {placeholder: '菜单名称', field: 'menuName', type: 'input'},
+                        {placeholder: '通知名称', field: 'menuName', type: 'input'},
                         {placeholder: '父级菜单名称', field: 'upMenuName', type: 'select',options:[{"key":"系统管理","value":"系统管理"},{"key":"服务管理","value":"服务管理"}]}
                     ],
                     queryButtons: [
