@@ -1,0 +1,21 @@
+<!-- 必须全局拥有唯一的id -->
+<div id="fx_upload_form" class="filter-container">
+    <el-row :gutter="20">
+        <el-col :span="11">
+            <el-input v-model="upLoadData.busNo" placeholder="请输入业务流水号"></el-input>
+            <el-upload
+                    class="upload-demo"
+                    ref="upload"
+                    :action="uploadUrl()"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :on-success="handleUploadSuccess"
+                    :auto-upload="false"
+                    :data="upLoadData">
+                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+                <div slot="tip" class="el-upload__tip">可上传任何类型文件，最好不超过500kb</div>
+            </el-upload>
+        </el-col>
+    </el-row>
+</div>

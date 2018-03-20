@@ -1,0 +1,85 @@
+<div id="report_forms">
+    <link rel="stylesheet" href="./pages/content/systemManager/xxlJob/jobIndex.css">
+    <div class="yu-rwzxContainer">
+        <el-row :gutter="10">
+            <el-col :span="8">
+                <div class="rwzx-gridContent blue">
+                    <i class="el-icon-yx-flag"></i>
+                    <div>
+                        <div>
+                            <p>任务数量</p>
+                            <h5 id="jobInfoCount">0</h5>
+                        </div>
+                        <p>调度中心运行的任务数量</p>
+                    </div>
+
+                </div>
+            </el-col>
+            <el-col :span="8">
+                <div class="rwzx-gridContent warning">
+                    <i class="el-icon-yx-calendar"></i>
+                    <div>
+                        <div>
+                            <p>调度次数</p>
+                            <h5 id="jobLogCount">0</h5>
+                        </div>
+                        <p>调度中心触发的调度次数</p>
+                    </div>
+                </div>
+            </el-col>
+            <el-col :span="8">
+                <div class="rwzx-gridContent success">
+                    <i class="el-icon-yx-equalizer"></i>
+                    <div>
+                        <div>
+                            <p>执行器数量</p>
+                            <h5 id="executorCount">0</h5>
+                        </div>
+                        <p>调度中心在线的执行器机器数量</p>
+                    </div>
+                </div>
+            </el-col>
+        </el-row>
+        <div id="yu-rwzxBox" :style="{height: height - 120 + 'px'}">
+            <div class="yu-rwzxBoxheader" >
+                <h2>调度报表</h2>
+                <el-popover
+                        ref="popover4"
+                        placement="bottom"
+                        v-model="timepvisible"
+                        width="200"
+                        trigger="click" >
+                    <ul id="timepopover">
+                        <li>今日</li>
+                        <li>昨日</li>
+                        <li class="yu-rwzxLiactive">本月</li>
+                        <li>上个月</li>
+                        <li>最近一周</li>
+                        <li>最近一月</li>
+                        <template>
+                            <div class="block">
+                                <el-date-picker
+                                        v-model="value"
+                                        type="datetimerange"
+                                        range-separator="至"
+                                        start-placeholder="开始日期"
+                                        end-placeholder="结束日期"
+                                        align="right">
+                                </el-date-picker>
+                            </div>
+                        </template>
+                        <div>
+                            <el-button type="success" @click="selectDateFn">确认</el-button>
+                            <el-button type="info" @click="timepvisible = false">取消</el-button></div>
+                    </ul>
+
+                </el-popover>
+                <el-button v-popover:popover4 class="el-icon-yx-calendar"></el-button>
+            </div>
+            <div id="yu-rwzxChartBox" :style="{height: height - 200 + 'px'}" >
+                <div id="yu-rwzxchartBox1" :style="{height: height - 200 + 'px',width: width + 'px'}" ></div>
+                <div id="yu-rwzxchartBox2" :style="{height: height - 200 + 'px',width: width2 + 'px'}"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,338 @@
+<div id="fx_dashboard">
+    <!--mainContainer sta-->
+    <div class="yu-mainContainer">
+
+        <!--本外币储蓄存款 sta-->
+        <div class="yu-Con">
+            <div class="yu-box">
+                <div class="yu-content" style="height:120px;">
+                    <div class="yu-idxMinCell">
+                        <b>1680.82<i>亿</i></b>
+                        <h1>本外币储蓄存款</h1>
+                        <span>同比上升<i class="icon-arrow-up2"></i><b>78%</b></span>
+                    </div>
+                    <div id="chartBox5"></div>
+                </div>
+            </div>
+        </div>
+        <!--本外币储蓄存款 end-->
+
+        <!--中间业务收入 sta-->
+        <div class="yu-Con">
+            <div class="yu-box">
+                <div class="yu-content" style="height:120px;">
+                    <div class="yu-idxMinCell imcBg1">
+                        <b class="c1">380.28<i>亿</i></b>
+                        <h1>中间业务收入</h1>
+                        <span>同比上升<i class="icon-arrow-up2"></i><b>56%</b></span>
+                    </div>
+                    <div id="chartBox6"></div>
+                </div>
+            </div>
+        </div>
+        <!--中间业务收入 end-->
+
+        <!--不良贷款 sta-->
+        <div class="yu-Con">
+            <div class="yu-box">
+                <div class="yu-content" style="height:120px;">
+                    <div class="yu-idxMinCell imcBg2">
+                        <b class="c6">169.15<i>亿</i></b>
+                        <h1>不良贷款</h1>
+                        <span>同比上升<i class="icon-arrow-up2"></i><b>11%</b></span>
+                    </div>
+                    <div id="chartBox7"></div>
+                </div>
+            </div>
+        </div>
+        <!--不良贷款 end-->
+
+        <!--监管指标 sta-->
+        <div class="yu-Con">
+            <div class="yu-box">
+                <h1><b>监管指标</b><!--<a href="#" >详细</a>--><span>2016-9</span></h1>
+                <div class="yu-content" style="height:215px;">
+                    <div id="chartBox1" style="width: 50%; height:100%;float: left;"></div>
+                    <div id="chartBox2" style="width: 50%; height:100%;float: left;"></div>
+                </div>
+            </div>
+        </div>
+        <!--监管指标 end-->
+
+        <!--存款趋势 sta-->
+        <div class="yu-Con">
+            <div class="yu-box">
+                <h1><b>存款趋势</b><!--<a href="#" >详细</a>--><span>2016-9</span></h1>
+                <div class="yu-content" style="height:215px;">
+                    <div id="chartBox3" style="width: 100%; height:100%;"></div>
+                </div>
+            </div>
+        </div>
+        <!--存款趋势 end-->
+
+        <!--贷款趋势 sta-->
+        <div class="yu-Con">
+            <div class="yu-box">
+                <h1><b>贷款趋势</b><!--<a href="#" >详细</a>--><span>2016-9</span></h1>
+                <div class="yu-content" style="height:215px;">
+                    <div id="chartBox4" style="width: 100%; height:100%;"></div>
+                </div>
+            </div>
+        </div>
+        <!--贷款趋势 end-->
+
+        <!--管理报告 sta-->
+        <div class="yu-Con">
+            <div class="yu-box">
+                <h1><i>管理报告</i><div class="yu-tabs" data-eventName="mouseover"><a href="javascript:void(0)" class="selected" title="分析报告">分析报告</a><a href="javascript:void(0)" title="市场比较">市场比较</a></div></h1>
+                <div class="yu-content yu-tabBox" style="height:272px;display: block;">
+                    <table class="yu-table">
+                        <!--
+                        <tr>
+                            <th><div>文件</div></th>
+                        </tr>
+                        -->
+                        <tr>
+                            <td><div><a href="#" onclick="dashboardClickFn()" title="零售条线关键核心指标情况-2016年-7月.xlsx">零售条线关键核心指标情况-2016年-7月.xlsx</a></div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div><a href="#" onclick="dashboardClickFn()" title="公金条线关键核心指标情况-2016年-7月.xlsx">公金条线关键核心指标情况-2016年-7月.xlsx</a></div></td>
+                        </tr>
+                        <tr>
+                            <td><div><a href="#" onclick="dashboardClickFn()" title="公金、零售条线转型发展指标情况-2016年-7月.xlsx">公金、零售条线转型发展指标情况-2016年-7月.xlsx</a></div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div><a href="#" onclick="dashboardClickFn()" title="零售条线关键核心指标情况-2016年-6月.xlsx">零售条线关键核心指标情况-2016年-6月.xlsx</a></div></td>
+                        </tr>
+                        <tr>
+                            <td><div><a href="#" onclick="dashboardClickFn()" title="公金条线关键核心指标情况-2016年-6月.xlsx">公金条线关键核心指标情况-2016年-6月.xlsx</a></div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div><a href="#" onclick="dashboardClickFn()" title="公金、零售条线转型发展指标情况-2016年-6月.xlsx">公金、零售条线转型发展指标情况-2016年-6月.xlsx</a></div></td>
+                        </tr>
+                        <tr>
+                            <td><div><a href="#" onclick="dashboardClickFn()" title="公金条线关键核心指标情况-2016年-6月.xlsx">公金条线关键核心指标情况-2016年-6月.xlsx</a></div></td>
+                        </tr>
+                        <tr class="even nobd">
+                            <td><div><a href="#" onclick="dashboardClickFn()" title="公金、零售条线转型发展指标情况-2016年-6月.xlsx">公金、零售条线转型发展指标情况-2016年-6月.xlsx</a></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="yu-content yu-tabBox" style="height:272px;">
+                    <table class="yu-table"><!--
+							<tr>
+								<th><div>文件</div></th>
+							</tr>-->
+                        <tr>
+                            <td><div><a href="#" title="两市高开沪指涨0.11% 权重股依旧低迷">两市高开沪指涨0.11% 权重股依旧低迷</a></div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div><a href="#" title="摸底房企资金流 1.5万亿资金犹如高悬“堰塞湖”">摸底房企资金流 1.5万亿资金犹如高悬“堰塞湖”</a></div></td>
+                        </tr>
+                        <tr>
+                            <td><div><a href="#" title="这"两证"又要整合了 以后将节省大把时间">这"两证"又要整合了 以后将节省大把时间</a></div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div><a href="#" title="8月信贷规模预计超7500亿元 居民贷款占大头">8月信贷规模预计超7500亿元 居民贷款占大头</a></div></td>
+                        </tr>
+                        <tr>
+                            <td><div><a href="#" title="陕西国企改革提速 陕金资产将参与企业重组">陕西国企改革提速 陕金资产将参与企业重组</a></div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div><a href="#" title="中铁总上半年亏损72亿 下半年铁路基建将投资3454亿元">中铁总上半年亏损72亿 下半年铁路基建将投资3454亿元</a></div></td>
+                        </tr>
+                        <tr>
+                            <td><div><a href="#" title="警报！38年历史数据显示黄金最强月份来临">警报！38年历史数据显示黄金最强月份来临</a></div></td>
+                        </tr>
+                        <tr class="even nobd">
+                            <td><div><a href="#" title="陕西国企改革提速 陕金资产将参与企业重组">陕西国企改革提速 陕金资产将参与企业重组</a></div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--管理报告 end-->
+
+        <!--资产负债指标 sta-->
+        <div class="yu-Con two">
+            <div class="yu-box">
+                <h1><i>资产负债指标</i><div class="yu-tabs" data-eventName="mouseover"><a href="javascript:void(0)" class="selected" title="人民币存款">人民币存款</a><a href="javascript:void(0)" title="外币存款">外币存款</a><a href="javascript:void(0)" title="人民币贷款">人民币贷款</a><a href="javascript:void(0)" title="外币贷款">外币贷款</a></div></h1>
+                <div class="yu-content yu-tabBox" style="height:272px;display: block;">
+                    <table class="yu-table">
+                        <tr>
+                            <th rowspan="2"><div>机构</div></th>
+                            <th colspan="4"><div>人民币对公存款</div></th>
+                            <th colspan="4"><div>人民币对私存款</div></th>
+                        </tr>
+                        <tr>
+                            <th style="border-left:1px #dbdbdb solid;"><div>08-27</div></th>
+                            <th><div>较上日</div></th>
+                            <th><div>较上月</div></th>
+                            <th><div>较年初</div></th>
+                            <th><div>08-27</div></th>
+                            <th><div>较上日</div></th>
+                            <th><div>较上月</div></th>
+                            <th><div>较年初</div></th>
+                        </tr>
+                        <tr>
+                            <td><div>营业部</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div>浦分</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr>
+                            <td><div>市北</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div>浦西</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr>
+                            <td><div>市南</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr class="even nobd">
+                            <td><div>市东</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="yu-content yu-tabBox" style="height:272px;">
+                    <table class="yu-table">
+                        <tr>
+                            <th rowspan="2"><div>机构</div></th>
+                            <th colspan="4"><div>外币对公存款</div></th>
+                            <th colspan="4"><div>外币对私存款</div></th>
+                        </tr>
+                        <tr>
+                            <th style="border-left:1px #dbdbdb solid;"><div>08-27</div></th>
+                            <th><div>较上日</div></th>
+                            <th><div>较上月</div></th>
+                            <th><div>较年初</div></th>
+                            <th><div>08-27</div></th>
+                            <th><div>较上日</div></th>
+                            <th><div>较上月</div></th>
+                            <th><div>较年初</div></th>
+                        </tr>
+                        <tr>
+                            <td><div>营业部</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div>浦分</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr>
+                            <td><div>市北</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div>浦西</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr>
+                            <td><div>市南</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr class="even nobd">
+                            <td><div>市东</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="yu-content yu-tabBox" style="height:272px;">
+                    <table class="yu-table">
+                        <tr>
+                            <th rowspan="2"><div>机构</div></th>
+                            <th colspan="4"><div>人民币对公贷款</div></th>
+                            <th colspan="4"><div>人民币对私贷款</div></th>
+                        </tr>
+                        <tr>
+                            <th style="border-left:1px #dbdbdb solid;"><div>08-27</div></th>
+                            <th><div>较上日</div></th>
+                            <th><div>较上月</div></th>
+                            <th><div>较年初</div></th>
+                            <th><div>08-27</div></th>
+                            <th><div>较上日</div></th>
+                            <th><div>较上月</div></th>
+                            <th><div>较年初</div></th>
+                        </tr>
+                        <tr>
+                            <td><div>营业部</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div>浦分</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr>
+                            <td><div>市北</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div>浦西</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr>
+                            <td><div>市南</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                        <tr class="even nobd">
+                            <td><div>市东</div></td><td class="ar"><div>1020.55</div></td><td class="ar"><div>0.16</div></td><td class="ar"><div>-82.16</div></td><td class="ar"><div>59.17</div></td>
+                            <td class="ar"><div>92.59</div></td><td class="ar"><div>-0.53</div></td><td class="ar"><div>0.66</div></td><td class="ar"><div>10.35</div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="yu-content yu-tabBox" style="height:272px;">
+                    <table class="yu-table">
+                        <tr>
+                            <th rowspan="2"><div>机构</div></th>
+                            <th colspan="4"><div>外币对公贷款</div></th>
+                            <th colspan="4"><div>外币对私贷款</div></th>
+                        </tr>
+                        <tr>
+                            <th style="border-left:1px #dbdbdb solid;"><div>08-27</div></th>
+                            <th><div>较上日</div></th>
+                            <th><div>较上月</div></th>
+                            <th><div>较年初</div></th>
+                            <th><div>08-27</div></th>
+                            <th><div>较上日</div></th>
+                            <th><div>较上月</div></th>
+                            <th><div>较年初</div></th>
+                        </tr>
+                        <tr>
+                            <td><div>营业部</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div>浦分</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr>
+                            <td><div>市北</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr class="even">
+                            <td><div>浦西</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr>
+                            <td><div>市南</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                        <tr class="even nobd">
+                            <td><div>市东</div></td><td class="ar"><div>820</div></td><td class="ar"><div>0.35</div></td><td class="ar"><div>-16.72</div></td><td class="ar"><div>38.22</div></td>
+                            <td class="ar"><div>74.12</div></td><td class="ar"><div>-0.32</div></td><td class="ar"><div>0.46</div></td><td class="ar"><div>6.15</div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--资产负债指标 end-->
+
+    </div>
+    <!--mainContainer end-->
+</div>

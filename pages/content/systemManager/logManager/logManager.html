@@ -1,0 +1,19 @@
+<!--日志管理页面-->
+<div id="logManager">
+    <el-form-q ref="queryCon" :columns="5" form="query" :field-data="queryFileds" @search-click="queryLogFn"></el-form-q>
+    <div class="yu-toolBar">
+        <el-button-group>
+            <el-button @click="dialogVisible=true" v-if="exportCheck">导出</el-button>
+            <el-button @click="deleteLogInfo" v-if="deleteCheck">删除</el-button>
+        </el-button-group>
+    </div>
+    <el-dialog title="提示" :visible.sync="dialogVisible" size="tiny">
+        <span>是否确认导出?</span>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible=false">取消</el-button>
+            <el-button @click="exportLog()" type="primary" title="excel版本2007及以上">确定</el-button>
+      </span>
+    </el-dialog>
+    <el-table-x ref="logtable" :checkbox="checkbox" :max-height="height" :data-url="dataUrl" :data-params="dataParams"
+                :table-columns="tableColumns" @row-click="getSelectedRow"></el-table-x>
+</div>

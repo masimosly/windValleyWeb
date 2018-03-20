@@ -1,0 +1,83 @@
+<!-- 必须全局拥有唯一的id -->
+<div id="WfiWorkflow2bizGroup">
+    <el-form-q form="query" :field-data="queryFileds" search-table="WfiWorkflow2bizList" ></el-form-q>
+    <div class="yu-toolBar">
+        <el-button-group>
+            <el-button icon="add" @click="openCreateFn" >新增</el-button>
+            <el-button  icon="edit" @click="openEditFn" >修改</el-button>
+            <el-button  icon="delete"  @click="deleteFn" >删除</el-button>
+            <el-button icon="edit" @click="openDetailFn" >查看</el-button>
+        </el-button-group>
+    </div>
+    <el-table-x ref="WfiWorkflow2bizList"  :max-height="height"
+                :data-url="urls.dataUrl" :data-params="dataParams" :table-columns="tableColumns" >
+    </el-table-x>
+    <!--新增-->
+    <el-dialog-x :title="addTitle" :visible.sync="addDialogFormVisible"  height="370px" width="700px">
+        <el-form-x ref="WfiWorkflow2bizForm" :group-fields="updateFields" :disabled="addFormDisabled" label-width="110px"></el-form-x>
+        <div slot="footer" align="center">
+            <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
+            <el-button  type="primary" @click="saveCreateFn()">确 定</el-button>
+        </div>
+    </el-dialog-x>
+    <!--修改、查看-->
+    <el-dialog-x :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible"  height="370px" width="700px">
+        <el-tabs v-model="tabName" >
+            <el-tab-pane label="流程适用业务配置" name="first">
+                <el-form-x ref="WfiWorkflow2bizForm" :group-fields="updateFields" :disabled="formDisabled" label-width="110px"></el-form-x>
+            </el-tab-pane>
+            <el-tab-pane label="节点配置" name="second">
+                <div class="yu-toolBar">
+                    <el-button-group>
+                        <el-button v-if="dialogStatus=='update'" icon="add" @click="openNodeCreateFn" >新增</el-button>
+                        <el-button v-if="dialogStatus=='update'" icon="edit" @click="openNodeEditFn" >修改</el-button>
+                        <el-button v-if="dialogStatus=='update'" icon="delete" @click="deleteNodeFn" >删除</el-button>
+                    </el-button-group>
+                </div>
+                <el-table-x ref="WfiNode2bizList"
+                            :data-url="urls.nodeDataUrl" :data-params="nodeDataParams" :table-columns="nodeTableColumns" >
+                </el-table-x>
+            </el-tab-pane>
+        </el-tabs>
+        <div slot="footer" align="center">
+            <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
+            <el-button v-if="dialogStatus=='update'" type="primary" @click="saveEditFn()">确 定</el-button>
+        </div>
+    </el-dialog-x>
+    <!--流程标识及名称选取框-->
+    <el-dialog-x :title="title" :visible.sync="dialogVisible_wfSign" height="360px" width="550px">
+        <el-form-q form="queryWfSign" :field-data="queryWfSignFileds" search-table="wfSignList"  :buttons="wfSignButtons"></el-form-q>
+        <el-table-x ref="wfSignList" :data-url="urls.wfSignUrl" :data-params="wfSignParams" :table-columns="wfSignTableColumns" >
+        </el-table-x>
+        <div slot="footer" align="center">
+            <el-button type="primary" @click="returnWfSign">选取返回</el-button>
+        </div>
+    </el-dialog-x>
+    <!--新增节点配置-->
+    <el-dialog-x :title="NodeTitle[nodeDialogStatus]" :visible.sync="NodeDialogFormVisible"  height="370px" width="700px">
+        <el-form-x ref="WfiNode2bizForm" :group-fields="updateNodeFields" :disabled="NodeFormDisabled" label-width="110px"></el-form-x>
+        <div slot="footer" align="center">
+            <el-button type="primary" @click="NodeDialogFormVisible = false">关闭</el-button>
+            <el-button v-if="nodeDialogStatus=='creat'" type="primary" @click="saveNodeCreateFn()">确 定</el-button>
+            <el-button v-if="nodeDialogStatus=='update'" type="primary" @click="saveNodeUpdateFn()">确 定</el-button>
+        </div>
+    </el-dialog-x>
+    <!--节点ID及名称选取框-->
+    <el-dialog-x :title="nodetitle" :visible.sync="dialogVisible_node" height="360px" width="550px">
+        <el-table-x ref="nodeList" :data-url="urls.nodeListUrl" :data-params="nodeParams" :table-columns="nodeColumns" >
+        </el-table-x>
+        <div slot="footer" align="center">
+            <el-button type="primary" @click="returnNode">选取返回</el-button>
+        </div>
+    </el-dialog-x>
+    <!--业务功能页面选择-->
+    <el-dialog-x :title="functionTitle" :visible.sync="dialogVisible_function" height="360px" width="550px">
+        <el-form-q :field-data="funcQueryFields" :buttons="funcQueryButtons" ></el-form-q>
+        <el-table-x ref="funcTable"
+                    :data-url="urls.funcDataUrl" :table-columns="funcTableColumns" >
+        </el-table-x>
+        <div slot="footer" align="center">
+            <el-button type="primary" @click="returnFunction">选取返回</el-button>
+        </div>
+    </el-dialog-x>
+</div>

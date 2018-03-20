@@ -1,0 +1,51 @@
+<div id="seqconfig_seqconfigAdmin">
+    <!--列表窗口-->
+    <div class="filter-container">
+        <el-form-q ref="queryCon"  form="query" :field-data="queryFileds" :buttons="queryButtons"></el-form-q>
+        <div class="yu-toolBar">
+            <el-button-group>
+                <el-button  icon="plus" @click="openAddFn">新增</el-button>
+                <el-button  icon="edit" @click="openUpdateFn">编辑</el-button>
+                <el-button  icon="delete" @click="deleteFn">删除</el-button>
+            </el-button-group>
+            <el-button-group>
+                <el-button  @click="createSeqFn">生成序列</el-button>
+                <el-button  @click="deleteSeqFn">删除序列</el-button>
+                <el-button  @click="resetSeqFn">重置序列</el-button>
+				<!-- <el-button  @click="createSeqTestFn">序列号生成示例</el-button>-->
+            </el-button-group>
+        </div>
+    </div>
+    <el-table-x ref="seqconfigTable"
+                :checkbox="mainGrid.checkbox" :max-height="mainGrid.height"
+                :data-url="mainGrid.dataUrl" :data-params="mainGrid.dataParams" :table-columns="mainGrid.tableColumns"
+                @custom-detail-click="openDetailFn"
+    >
+    </el-table-x>
+
+
+    <!--新增/修改 表单窗口-->
+    <el-dialog-x :title="dialogTitle" :visible.sync="dialogFormVisible"  height="500px" width="800px">
+        <el-collapse  v-model="activeName" >
+            <el-collapse-item title="模板基础信息配置" name="1">
+                <el-form-x ref="form"
+                           :group-fields="updateFields"
+                           label-width="110px" :disabled="formAllDisabled"></el-form-x>
+            </el-collapse-item>
+            <el-collapse-item title="模板格式配置" name="2">
+                <el-table :data="tableData" :fit=true @row-dblclick="dbClickFn">
+                    <el-table-column prop="variateName" label="变量名称" align="center"></el-table-column>
+                    <el-table-column prop="variateValue" label="变量值" align="center"></el-table-column>
+                    <el-table-column prop="variateDes" label="说明" align="center"></el-table-column>
+                </el-table>
+                <el-form-x ref="otherForm"
+                           :group-fields="updateOtherFields"
+                           label-width="110px" :disabled="formAllDisabled"></el-form-x>
+            </el-collapse-item>
+        </el-collapse>
+        <div slot="footer" align="center">
+            <el-button v-if="!formAllDisabled" type="primary" @click="saveFn">保存</el-button>
+            <el-button type="primary" @click="cancelFn">取 消</el-button>
+        </div>
+    </el-dialog-x>
+</div>

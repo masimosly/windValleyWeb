@@ -1,0 +1,33 @@
+<!--
+ * @Authoer: hujun
+ * @Description:用户授权机构管理
+ * @Date 2017/12/27 14:16
+ * @Modified By:
+ *
+-->
+
+<div id="userGrantOrg">
+    <el-form-q form="query" :field-data="queryFileds" :buttons="queryButtons"></el-form-q>
+    <div class="yu-toolBar">
+        <el-button-group>
+            <el-button  icon="add" @click="openCreateFn">新增</el-button>
+            <el-button  icon="edit" @click="openEditFn">修改</el-button>
+            <el-button  icon="delete" @click="deletestFn">删除</el-button>
+            <el-button  icon="edit" @click="useFn">启用</el-button>
+            <el-button  icon="edit" @click="unUseFn">停用</el-button>
+        </el-button-group>
+    </div>
+    <el-table-x ref="grantTable"
+                :checkbox="mainGrid.checkbox" :max-height="mainGrid.height"
+                :data-url="mainGrid.dataUrl" :data-params="mainGrid.dataParams" :table-columns="mainGrid.tableColumns"
+                @custom-detail-click="openDetailFn">
+    </el-table-x>
+    <el-dialog-x :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible"  center=true height="200px">
+        <el-form-x ref="grantInfoform"  :group-fields="updateFields" :disabled="formDisabled" label-width="80px"></el-form-x>
+        <div  align="center">
+            <el-button  @click="dialogFormVisible = false">关闭</el-button>
+            <el-button v-if="dialogStatus=='create'" type="primary" @click="saveCreateFn()">确 定</el-button>
+            <el-button v-if="dialogStatus=='update'" type="primary" @click="saveEditFn()">确 定</el-button>
+        </div>
+    </el-dialog-x>
+</div>

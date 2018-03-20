@@ -1,0 +1,171 @@
+<LINK rel=stylesheet type=text/css href="pages/content/systemManager/userInfoManager/sysUserManage.css"/>
+<div id="userInfo">
+    <el-row :gutter="10">
+        <!--左侧机构树-->
+        <el-col :span="5">
+            <el-tree-x ref="mytree" @node-click="nodeClickFn" :show-checkbox="false" :height="height_org"
+                       style="margin-top: 10px"
+                       :data-url="treeUrl_rel" data-id="orgCode" data-label="orgName"
+                       data-pid="upOrgId" :data-root="orgRootId"></el-tree-x>
+        </el-col>
+        <!--用户信息列表部分-->
+        <el-col :span="19">
+            <!--用户信息列表查询条件-->
+            <el-form-q form="query" :field-data="queryFileds"  search-table="mytable" ></el-form-q>
+            <div class="yu-toolBar">
+                <el-button-group>
+                    <el-button icon="plus" @click="openCreateFn" v-if="addUserButton">新增</el-button>
+                    <el-button icon="edit" @click="openEditFn" v-if="editUserButton">修改</el-button>
+                    <el-button icon="delete" @click="deletestFn" v-if="deleteUserButton">删除</el-button>
+                    <el-button icon="yx-unlocked" @click="useBatchFn" v-if="useUserButton">启用</el-button>
+                    <el-button icon="yx-lock" @click="unUseBatchFn" v-if="unuseUserButton">停用</el-button>
+                    <el-button icon="edit" @click="openRelInfoFn" v-if="userRelButton">用户关联信息</el-button>
+                    <el-button icon="reset" @click="resetPassword" v-if="resetPwsButton">重置密码</el-button>
+                </el-button-group>
+            </div>
+            <!--用户列表-->
+            <el-table-x ref="mytable"
+                        :checkbox="mainGrid.checkbox" :max-height="mainGrid.height"
+                        :data-url="mainGrid.dataUrl" :data-params="mainGrid.dataParams"
+                        :table-columns="mainGrid.tableColumns"
+                        @custom-detail-click="openDetailFn">
+            </el-table-x>
+        </el-col>
+    </el-row>
+    <!--用户信息维护页面-->
+    <el-dialog-x :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" height="360px" width="800px">
+        <el-collapse v-model="activeName" accordion>
+            <el-collapse-item title="关键信息" name="1">
+                <el-form :model="userForm" :rules="rules" ref="userForm" label-width="80px">
+                    <el-row :gutter="20">
+                        <el-col :span="12">
+                            <el-form-item label="姓名" prop="userName">
+                                <el-input v-model="userForm.userName"></el-input>
+                            </el-form-item>
+                            <el-form-item label="登录代码" prop="loginCode">
+                                <el-input type="text" v-model="userForm.loginCode" :readonly="readonly"></el-input>
+                            </el-form-item>
+                            <el-form-item label="有效期"  prop="deadline" >
+								<el-date-picker type="date" v-model="userForm.deadline"  ></el-date-picker>
+							</el-form-item>
+							<el-form-item label="状态"  prop="userSts">
+								<el-select clearable v-model="userForm.userSts" >
+             						 <el-option v-for="item in stsOptions" :key="item.key" :value="item.key" :label="item.value+'('+item.key+')'"></el-option>
+        						</el-select>
+							</el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-upload
+                                    class="avatar-uploader"
+                                    :action="uploadAction"
+                                    :show-file-list="false"
+                                    :on-success="handleAvatarSuccess"
+                                    :before-upload="beforeAvatarUpload"
+                                    >
+                                <img v-if="userForm.userAvatar" :src="userForm.userAvatar" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                        </el-col>
+                    </el-row>
+                </el-form>
+                <el-form-x ref="userInfo"
+                           :group-fields="userFields" label-width="80px"></el-form-x>
+            </el-collapse-item>
+            <el-collapse-item title="扩展信息" name="2">
+                <el-form-x ref="userOtherInfo"
+                           :group-fields="userOtherFields" label-width="80px"></el-form-x>
+            </el-collapse-item>
+        </el-collapse>
+        <div slot="footer" align="center">
+            <el-button type="primary" v-if="dialogStatus=='create'" @click="saveCreateFn()">保存</el-button>
+            <el-button type="primary" v-if="dialogStatus=='update'" @click="saveEditFn()">保存</el-button>
+            <el-button type="primary" @click="resetTempFn">重置</el-button>
+        </div>
+    </el-dialog-x>
+    <!--用户信息详情页面-->
+    <el-dialog-x :title="textMap['detail']" :visible.sync="dialogDetailVisible" height="360px" width="800px">
+        <el-collapse v-model="activeName" accordion>
+            <el-collapse-item title="关键信息" name="1">
+                <el-form :model="userForm" :rules="rules" ref="userForm" label-width="80px">
+                    <el-row :gutter="20">
+                        <el-col :span="12">
+                            <el-form-item label="姓名" prop="userName">
+                                <el-input v-model="userForm.userName" :disabled="true"></el-input>
+                            </el-form-item>
+                            <el-form-item label="登录代码" prop="loginCode">
+                                <el-input type="text" v-model="userForm.loginCode" :disabled="true"></el-input>
+                            </el-form-item>
+                            <el-form-item label="有效期"  prop="deadline" >
+								<el-input type="date" v-model="userForm.deadline"  :disabled="true"></el-input>
+							</el-form-item>
+							<el-form-item label="状态"  prop="userSts">
+								<el-select clearable v-model="userForm.userSts" :disabled="true">
+              						<el-option v-for="item in stsOptions" :key="item.key" :value="item.key" :label="item.value+'('+item.key+')'"></el-option>
+       							</el-select>
+							</el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-upload
+                                    class="avatar-uploader"
+                                    action="uploadAction"
+                                    :show-file-list="false"
+                                    :on-success="handleAvatarSuccess"
+                                    :before-upload="beforeAvatarUpload"
+                                    disabled>
+                                <img v-if="userForm.userAvatar" :src="userForm.userAvatar" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                        </el-col>
+                    </el-row>
+                </el-form>
+                <el-form-x ref="userDetailInfo"
+                           :group-fields="userDetailFields"
+                           :disabled="true" label-width="80px"></el-form-x>
+            </el-collapse-item>
+            <el-collapse-item title="扩展信息" name="2">
+                <el-form-x ref="userDetailOtherInfo"
+                           :group-fields="userDetailOtherFields"
+                           :disabled="true" label-width="80px"></el-form-x>
+            </el-collapse-item>
+            <!--
+            <el-collapse-item title="关联信息" name="3">
+            </el-collapse-item>-->
+        </el-collapse>
+    </el-dialog-x>
+    <!--用户关联信息-->
+    <el-dialog-x :title="textMap[dialogStatus]" :visible.sync="dialogVisible_relInfo" height="360px" width="420px">
+        <el-tabs v-model="activeFlag" @tab-click="handleClick">
+            <el-tab-pane label="用户角色信息" name="first">
+                <el-table-x ref="roleTable" :max-height="mainGrid_role.height" :default-load="false" :pageable="false"
+                            :checkbox="mainGrid_role.checkbox" :data-url="mainGrid_role.dataUrl"
+                            :table-columns="mainGrid_role.tableColumns"></el-table-x>
+                <div align="center">
+                    <el-button type="primary" @click="saveEditFn_role">保存(角色)</el-button>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="用户岗位信息" name="second">
+                <el-table-x ref="dutyTable" :max-height="mainGrid_post.height" :default-load="false" :pageable="false"
+                            :checkbox="mainGrid_post.checkbox" :data-url="mainGrid_post.dataUrl"
+                            :table-columns="mainGrid_post.tableColumns"></el-table-x>
+                <div align="center">
+                    <el-button type="primary" @click="saveEditFn_post">保存(岗位)</el-button>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="授权机构信息" name="third">
+                <el-tree-x ref="orgUsertree" :show-checkbox="true" :height="mainGrid_post.height" style="margin-top: 10px"
+                           :data-url="treeUrl_rel" data-id="orgCode" data-label="orgName"
+                           data-pid="upOrgId" :data-root="orgRootId" :check-strictly="true"></el-tree-x>
+                <div  align="center">
+                    <el-button type="primary" @click="saveEditFn_org">保存(机构)</el-button>
+                </div>
+            </el-tab-pane>
+        </el-tabs>
+    </el-dialog-x>
+    <el-dialog-x title="重置密码" :visible.sync="pwdform.dialogVisible" height="200" width="400px">
+        <el-form-x ref="pwdform" :group-fields="pwdform.pwdFields" label-width="100px"></el-form-x>
+        <div slot="footer" class="dialog-footer" align="center">
+            <el-button type="primary" @click="pwdform.dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="resetPwd">确 定</el-button>
+        </div>
+    </el-dialog-x>
+</div>

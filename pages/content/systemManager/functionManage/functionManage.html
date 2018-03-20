@@ -1,0 +1,50 @@
+<!--
+* @Authoer: weimei
+* @Description: 业务功能管理
+* @Date 2017/12/5 9：30
+* @Modified By:
+-->
+<div id="functionManage">
+	<el-row :gutter="10">
+		<el-col :span="10">
+			<el-form-q :field-data="modQueryFields" :buttons="modQueryButtons" :columns="2" title="模块管理"></el-form-q>
+			<div class="yu-toolBar">
+				<el-button-group>
+					<el-button  icon="plus" @click="modAddFn"  v-if="modAddCheck">新增</el-button>
+					<el-button  icon="edit" @click="modModifyFn"  v-if="modModifyCheck">修改</el-button>
+					<el-button  icon="yx-bin" @click="modDeleteFn"  v-if="modDeleteCheck">删除</el-button>
+				</el-button-group>
+			</div>
+			<el-table-x ref="modTable" @row-dblclick="modSelect" @row-click="modSelect" :height="height"
+				:data-url="modDataUrl" :table-columns="modTableColumns" @custom-row-click="modRowClick">
+			</el-table-x>
+			<el-dialog-x :title="viewTitle[viewType]" :visible.sync="modDialogVisible">
+				<el-form-x ref="modForm" :group-fields="modFields" :buttons="modFormButtons" :disabled="modFormDisabled" label-width="120px"></el-form-x>
+			</el-dialog-x>
+		</el-col>
+		<el-col :span="14">
+				<el-form-q :field-data="funcQueryFields" :buttons="funcQueryButtons" :columns="3"  title="业务功能管理"></el-form-q>
+				<div class="yu-toolBar">
+					<el-button-group>
+						<el-button  icon="plus" @click="funcAddFn" v-if="funcAddCheck">新增</el-button>
+						<el-button  icon="edit" @click="funcModifyFn" v-if="funcModifyCheck">修改</el-button>
+						<el-button  icon="yx-bin" @click="funcDeleteFn" v-if="funcDeleteCheck">删除</el-button>
+					</el-button-group>
+				</div>
+				<el-table-x ref="funcTable" :checkbox="true" @custom-row-click="funcRowClick" :height="height"
+					 :data-url="funcDataUrl" :table-columns="funcTableColumns" :default-load=false>
+				</el-table-x>
+				<el-dialog-x :title="viewTitle[viewType]" :visible.sync="funcDialogVisible">
+					<el-form-x ref="funcForm" :group-fields="funcFields" :buttons="funcFormButtons" :disabled="funcFormDisabled" label-width="120px">
+					</el-form-x>
+				</el-dialog-x>
+		</el-col>
+	</el-row>
+	<div>
+		<el-dialog-x title="图标选择" :visible.sync="iconDialogVisible" height="400px">
+			<div class="yu-icons">
+			 <a v-for="icons in icons" href="javascript:void(0)" :class="icons" :title="icons" @click="iconSelect"></a>	
+			</div>
+		</el-dialog-x>
+	</div>
+</div>

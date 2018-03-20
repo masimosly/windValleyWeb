@@ -1,0 +1,11 @@
+/**
+ * @author yourEmail
+ * @since 2017-11-15
+ * @description 空白模板
+ */
+.blank_template h1{
+    text-align: center;
+}
+.blank_template {
+    color: red;
+}

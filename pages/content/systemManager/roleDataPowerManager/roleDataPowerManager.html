@@ -1,0 +1,37 @@
+<!-- 必须全局拥有唯一的id -->
+<div id="roleDatapower">
+    <el-row :gutter="20">
+        <!--对象部分-->
+        <el-col :span="17">
+            <el-form-q form="query" :field-data="formFields" search-table="roleTable"   ref="objectForm" ></el-form-q>
+            <div class="yu-toolBar">
+                <el-button-group>
+                    <el-button  icon="yx-folder-upload" @click="exportInfoFn" v-if="uploadButton">导出</el-button>
+                    <el-button  icon="yx-copy" @click="copyInfoFn" v-if="copyButton">复制</el-button>
+                </el-button-group>
+           	</div>
+            <el-table-x ref="roleTable" @row-click="selectRow_role"
+                            :checkbox="roleGrid.checkbox" :height="roleGrid.height"
+                            :data-url="roleGrid.dataUrl" :data-params="roleGrid.dataParams" :table-columns="roleGrid.tableColumns">
+            </el-table-x>
+        </el-col>
+        <!--资源部分-->
+        <el-col :span="7">
+            <!--菜单和控制点资源-->
+            <div class="yu-toolBar" style="margin-top: 10px;">
+                <el-button-group>
+                    <el-button  icon="yx-checkmark2" @click="reSelectFn" v-if="setOtherButton">反选</el-button>
+                    <el-button  icon="yx-cross" @click="reSetFn" v-if="resetButton">重置</el-button>
+                </el-button-group>
+           	</div>
+            <el-tree-x ref="menuTree" :show-checkbox="menuTree.treeCheckBox" :height="menuTree.height"
+                       :data-url="reourceUrl" data-id="id" data-label="menuName"
+                        @check-change="selectCheckFn" node-key="id" :check-strictly="false"
+                       data-pid="upMenuId" data-root="0" :render-content="renderContent"></el-tree-x>
+        </el-col>
+    </el-row>
+    <!--保存按钮-->
+    <div align="center">
+        <el-button type="primary" icon="information" @click="saveAllInfoFn" center>保存</el-button>
+    </div>
+</div>

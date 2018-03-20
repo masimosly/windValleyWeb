@@ -1,0 +1,29 @@
+<!-- 必须全局拥有唯一id -->
+<div id="template_searchtable">
+    <el-form-q title="角色查询" :field-data="queryFields" search-table="mytable"></el-form-q>
+    <el-row :gutter="10">
+        <el-col :span="12">
+            <div class="yu-toolBar">
+                <h2>角色列表</h2>
+                <el-button-group>
+                    <el-button icon="plus">新增</el-button>
+                    <el-button icon="edit">修改</el-button>
+                    <el-button icon="yx-bin">删除</el-button>
+                </el-button-group>
+            </div>
+            <el-table-x ref="mytable" data-url="/example/template/msform" :table-columns="tableColumns"
+                 @row-click="search" :height="height"></el-table-x>
+        </el-col>
+        <el-col :span="12">
+            <div class="yu-toolBar">
+                <h2>权限列表</h2>
+                <el-button-group>
+                    <el-button icon="plus">新增</el-button>
+                    <el-button icon="yx-bin">删除</el-button>
+                </el-button-group>
+            </div>
+            <el-table-x ref="mytable1" data-url="/example/template/subtable" :table-columns="tableColumns"
+                 :height="height"></el-table-x>
+        </el-col>
+    </el-row>
+</div>

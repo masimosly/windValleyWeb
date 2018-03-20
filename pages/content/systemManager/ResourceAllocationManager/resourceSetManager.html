@@ -1,0 +1,106 @@
+<!-- 必须全局拥有唯一的id -->
+<div id="resourceSet">
+    <el-row :gutter="20">
+        <!--对象部分-->
+        <el-col :span="13">
+        	<div style="margin-top: 10px;margin-bottom: 10px;">
+        		<el-row :gutter="20">
+	            	<el-col :span="14">
+	            		<el-select clearable v-model="showObjectFlag" placeholder="对象类型">
+	                    	<el-option v-for="item in typeOptions" :key="item.key" :value="item.key" :label="item.value+'('+item.key+')'"></el-option>
+	                	</el-select>
+	            	</el-col>
+	            	<el-col :span="10">
+	            		<el-button icon="yx-copy" @click="copyInfoFn" style="margin-left: 33px;" v-if="copyButton">复制</el-button>
+			            <el-button  icon="yx-folder-upload" @click="exportInfoFn" >导出</el-button>
+	            	</el-col>
+            	</el-row>
+        	</div>
+            
+            <!--角色对象-->
+            <div class="filter-container" v-show="showObjectFlag ==='R'">
+                <div class="filter-container">
+                	<el-row :gutter="4">
+	                	<el-col :span="5">
+	                        <yufp-org-tree  v-model="roleGrid.query.orgId" placeholder="角色所属机构" style="width: 120px;"></yufp-org-tree>
+	                    </el-col>
+	                    <el-col :span="19">
+		                    <el-input  v-model="roleGrid.query.roleCode" placeholder="角色代码" style="width: 120px;"></el-input>
+		                    <el-input  v-model="roleGrid.query.roleName" placeholder="角色名称" style="width: 120px;"></el-input>
+		                    <el-button type="primary" icon="search" @click="queryRoleFn" style="margin-left: 20px;">查询</el-button>
+		                    <el-button type="primary" icon="information" @click="resetQueryRoleFn">重置</el-button>
+	                    </el-col>
+                   </el-row >
+                </div>
+                <el-table-x ref="roleTable" @row-click="selectRow_role"
+                            :checkbox="roleGrid.checkbox" :height="roleGrid.height"
+                            :data-url="roleGrid.dataUrl" :data-params="roleGrid.dataParams" :table-columns="roleGrid.tableColumns">
+                </el-table-x>
+            </div>
+            <!--机构树对象-->
+            <div class="filter-container" v-show="showObjectFlag ==='G'">
+                <el-tree-x ref="orgTree" @node-click="orgClickFn" :show-checkbox="false" :height="orgTree.height"
+                           :data-url="treeUrl" data-id="orgCode" data-label="orgName"
+                           data-pid="upOrgId" :data-root="orgRootId"></el-tree-x>
+            </div>
+            <!--部门对象-->
+            <div class="filter-container" v-show="showObjectFlag ==='D'">
+                <div class="filter-container">
+                	<el-row :gutter="4">
+	                	<el-col :span="5">
+	                        <yufp-org-tree  v-model="dptGrid.query.belongOrgId" placeholder="所属机构" ></yufp-org-tree>
+	                    </el-col>
+	                    <el-col :span="19">
+		                    <el-input  v-model="dptGrid.query.dptCde" placeholder="部门代码" style="width: 120px;"></el-input>
+		                    <el-input  v-model="dptGrid.query.dptName" placeholder="部门名称" style="width: 120px;"></el-input>
+		                    <el-button type="primary" icon="search" @click="queryDptFn" style="margin-left: 20px;">查询</el-button>
+		                    <el-button type="primary" icon="information" @click="resetDptRoleFn">重置</el-button>
+	                    </el-col>
+                   </el-row >
+                </div>
+                <el-table-x ref="dptTable" @row-click="rowClickFn_dep"
+                            :checkbox="dptGrid.checkbox" :height="dptGrid.height"
+                            :data-url="dptGrid.dataUrl" :data-params="dptGrid.dataParams" :table-columns="dptGrid.tableColumns">
+                </el-table-x>
+            </div>
+            <!--用户对象-->
+            <div class="filter-container" v-show="showObjectFlag ==='U'">
+                <div class="filter-container">
+                	<el-row :gutter="4">
+	                	<el-col :span="5">
+	                        <yufp-org-tree  v-model="userGrid.query.orgId" placeholder="所属机构" ></yufp-org-tree>
+	                    </el-col>
+	                    <el-col :span="19">
+		                    <el-input  v-model="userGrid.query.userInfo" placeholder="登录代码/用户名" style="width: 220px;"></el-input>
+		                    <el-button type="primary" icon="search" @click="queryUserFn" style="margin-left: 20px;">查询</el-button>
+                    		<el-button type="primary" icon="information" @click="resetUserFn">重置</el-button>
+	                    </el-col>
+                   </el-row >
+                </div>
+                <el-table-x ref="userTable" @row-click="selectRow_user"
+                            :checkbox="userGrid.checkbox" :height="userGrid.height"
+                            :data-url="userGrid.dataUrl" :data-params="userGrid.dataParams" :table-columns="userGrid.tableColumns">
+                </el-table-x>
+            </div>
+        </el-col>
+        <!--资源部分-->
+        <el-col :span="11">
+            <!--菜单和控制点资源-->
+            <div class="yu-toolBar" style="margin-top: 10px;">
+                <el-button-group>
+                    <el-button  icon="yx-cloud-check" @click="selectAllFn" v-if="selectAllButton">全选</el-button>
+                    <el-button  icon="yx-checkmark2" @click="reSelectFn" v-if="setOtherButton">反选</el-button>
+                    <el-button  icon="yx-cross" @click="reSetFn" v-if="resetButton">重置</el-button>
+                </el-button-group>
+           	</div>
+            <el-tree-x ref="menuTree" :show-checkbox="menuTree.treeCheckBox" :height="menuTree.height"
+                       :data-url="reourceUrl" data-id="id" data-label="menuName"
+                        node-key="id" :check-strictly="true" 
+                       data-pid="upMenuId" data-root="0" :render-content="renderContent"></el-tree-x>
+        </el-col>
+    </el-row>
+    <!--保存按钮-->
+    <div align="center">
+        <el-button type="primary" icon="information" @click="saveAllInfoFn" center>保存</el-button>
+    </div>
+</div>

@@ -1,0 +1,188 @@
+   ChangeLog.txt编写说明，请以日期/功能分组
+
+ 
+####################################
+2018-01-19 更新日志
+####################################
+1、修复首页F5刷新时跳转至登录页BUG
+
+
+####################################
+2018-01-18 更新日志
+####################################
+1、更新文件上传附带md5值，示例见example下的uploadWidthMD5.html
+
+
+####################################
+2018-01-17 更新日志
+####################################
+1、el-table-x组件提供默认查询参数base-params
+  示例：baseParams:[{
+                		text1:'参数1',
+                		text2:'参数2'
+                	}],
+####################################
+2018-01-16 更新日志
+####################################
+1、e-form-q组件兼容之前的版本，配置buttons属性后，高级查询等功能失效即2018-01-09中更新
+的功能失效，要使用新功能需去掉buttons属性，并按照要求进行配置详见2018-01-09更新。
+
+####################################
+2018-01-16 更新日志
+####################################
+1、el-dialog-x组件增加默认按钮（取消、确认）
+    使用说明：
+    1）、组件添加了need-bar属性配置，默认false，配置为true时，自动在底部增加：取消、确认两个按钮
+    2）、组件添加了cancel-text/sure-text按钮文本配置，默认分别是：取消、确认
+    3）、组件添加了cancel-fn 属性配置，类型Function，默认绑定确认按钮事件
+    4）、若在开启need-bar的同时要添加额外按钮，则在el-dialog-x内部增加：
+        <template slot="footer">
+            <el-button type="primary" icon="check">其它</el-button>
+        </template>
+
+
+
+####################################
+2018-01-12 更新日志
+####################################
+1、table组件支持单选，在标签中配置:radiobox='true'即可生效
+
+
+####################################
+2018-01-11 更新日志
+####################################
+1、新增el-tree-x树的懒加载，在标签中新增:lazy-load="true" 表示开启 懒加载，默认为关闭
+	同时需要改变 data-url为懒加载接口如下：
+	data-url="/example/example/asynctree"
+2、修正页签刷新bug（保存路由参数/数据）
+
+####################################
+2018-01-09 更新日志
+####################################
+
+1、增加高级查询功能
+   使用说明：
+   1)、在el-form-q 标签中需要指定查询的表格实例 search-table="reftable" ，
+      或者指定 回掉方法 @search-click="searchClick",其优先级指定实例>回调方法。
+      还需要在标签中配置属性more-data，并在js中编写高级查询信息
+   	示例：moreQueryFields:[
+                        {placeholder: '标题2', field: 'title2', type: 'input'},
+                        {placeholder: '时间2', field: 'create_at2', type: 'date'},
+                        {placeholder: '类型2', field: 'type2', type: 'select', dataCode: 'NATIONALITY'}
+                    ],
+    2）、为了更好的适应排版，加入属性thrift，true表示搜索、重置、高级三个按钮只显示图标。
+    3）、加入force-column属性，true表示强制按钮紧随到搜索框后。即从左到右依次排列
+	4）、加入float-search属性，来定义高级搜索栏出现的样式，true表示浮动样式。
+	5）、加入reset-button属性，来表示是否有重置按钮。
+	6）、标签中不需要配置查询、重置按钮，现在由search-table代替默认去其实现功能，如果需要自己手动实现搜索功能
+		则使用@search-click事件来监听搜索按钮（注意：手动实现功能的话则不需要配置search-table）
+####################################
+2018-01-09 更新日志
+####################################
+
+1、增加表头右键动态隐藏列的功能
+   使用说明：
+   1）、el-table-x 中配置属性 hide-coloum,true表示打开功能，默认是关闭。
+   2）、如果要初始化的时候隐藏某一列需要在tableColumns中需要隐藏的列中配置hidden:true,
+   		示例：
+   		tableColumns: [
+                        { label: '编码', prop: 'id' },
+                        { label: '名称', prop: 'title', width: 260, sortable: true, resizable: true ,hidden:true},
+                    ]
+   3）、增加后端排序功能，如果需要开启后端排序则在需要排序的列中配置sortable: 'custom'
+   		示例： tableColumns: [
+   							  { label: '名称', prop: 'title', width: 260, sortable: 'custom', resizable: true}
+   							}
+####################################
+2018-01-07 更新日志
+####################################
+1、增加前端控制点权限控制
+   使用说明：
+   1）、功能页面通过调用：
+        yufp.session.checkCtrl('create')
+        其中，create表示控制点CODE，返回false表示当前页面有权限，返回true表示无权限
+        示例：如：
+            HTML模板：<el-button v-if="createVisible"></el-button>
+            JS逻辑：data: function(){
+                createVisible: yufp.session.checkCtrl('create')
+            }
+        注：
+        1）yufp.session.checkCtrl默认获取当前页签对应的菜单权限，若某些功能无具体菜单，可通过调用
+        2）yufp.session.checkCtrl('ctrlCode', 'menuId')，即指定菜单ID下的控制点权限
+        3）若像CRM客户视图功能项控制点权限，可通过调用：
+          yufp.session.checkCtrl('ctrlCode', '', true)，则自动绑定到当前视图菜单项权限
+          yufp.session.checkCtrl('ctrlCode', 'viewId', true),绑定到指定视图项权限
+
+   配置说明：
+   1）、yufp.session.js中初始化配置ctrlUrl、ctrlJsonRoot、ctrlMapping等属性
+   2）、目前控制点请求URL是和菜单一起返回的，故在菜单数据请求返回后直接调用的processCtrls
+   3）、mock模拟控制点数据，需要在mocks/data/menu.js中添加demoCtrls变量数据
+2、增加自定义打开页签功能
+   使用说明，详见常用组件->打开菜单/自定义页签示例
+
+####################################
+2018-01-04 更新日志
+####################################
+1、首页增加修改密码功能；
+2、首页页签增加双击刷新支持（tabDoubleClickRefresh:true，默认开启）
+
+####################################
+2018-01-03 更新日志
+####################################
+1、首页页签关闭问题修复（首页不可关闭，首页数据需要isIndex:true标识）
+
+
+####################################
+2017-12-29 更新日志
+####################################
+    1、菜单/路由配置动态化
+        1）默认从mock模拟数据获取，前端静态开发：mocks/data/menu.js
+
+
+####################################
+2017-12-28 更新日志
+####################################
+    1、修复el-form-q组件
+        1）自定义组件无法正常展现BUG
+    2、新增yufp.session.js会话信息提取
+        yufp.session.userId,     用户ID
+        yufp.session.userName,   用户姓名
+        yufp.session.userCode,   用户登录码
+        yufp.session.userAvatar, 用户头像
+        yufp.session.org,        机构对象Object
+        yufp.session.dpt,        部门对象Object
+        yufp.session.logicSys,   逻辑系统对象Object
+        yufp.session.instu,      金融机构对象Object
+        yufp.session.upOrg,      父机构对象
+        yufp.session.upDpt       父部门对象
+    3、组件el-tree-x
+        1）新增root-visible属性，默认true，表示是否展示根节点
+        2）新增orginalData，表示查询原始数据
+
+
+####################################
+2017-12-27 更新日志
+####################################
+    1、新增组件el-dialog-x弹出框，负责人：helin3
+        1）默认支持多层嵌套
+        2）el-dialog-x支持配置width属性，默认设置为50%, 可配置百分比、像素，如：'600px', '60%'，都是合法配置
+        3）el-dialog-x支持配置height属性，默认为自适应，可配置百分比、像素，如：'360px', '60%'
+    2、新增主题模式
+        1）支持首页模式动态切换
+        2）修复内部功能可见区域提供的宽高值计算错误问题
+    3、新增导出Excel功能
+        1）提供前端JS导出当前表格数据、选择行数据为excel功能
+        2）提供配置后台导出Excel功能
+    4、修复组件el-table-x，封装表格
+        1）height、max-height最大高度配置内部计算错误问题
+        2）增加table-filters属性配置，用于列配置template模板时，可添加过滤器，请参考：基础教程/常用组件/封装表格，状态列
+    5、修复组件el-form-x，封装表单
+        1）修复disabled属性设置为禁用true后，再次设置为false无效问题
+        2）修复表单中配置自定义选择器时，无法传递参数问题，增加字段params参数
+    6、修复组件el-form-q，查询表单
+        1）修复表单中配置自定义选择器时，无法传递参数问题，增加字段params参数
+        2）修复查询字段个数变化时，导致的查询条件显示杂乱问题
+        3）增加列配置支持，增加columns属性配置，默认展示4列
+    7、表格按钮组样式风格调整，简洁，请参考：基础教程/模板示例/普通查询
+
+    8、修复custom/main.js中，ElFormX/ElFormQ路径名中大小写配置错误，导致tomcat容器时，无法正常解析URL路径

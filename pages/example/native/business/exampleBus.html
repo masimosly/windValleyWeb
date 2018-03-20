@@ -1,0 +1,71 @@
+<div id="bus-component">
+	<div>
+		<h4>form-x下使用机构控件</h4>
+		<el-form-x ref="orgform" :group-fields="orgTree.editFields" :buttons="orgTree.buttons" label-width="100px"></el-form-x>
+	</div>
+	<div>
+		<h4>机构树-说明</h4>
+		<el-table :data="orgTree.param">
+		<el-table-column prop="name" label="参数名" width="150"></el-table-column>
+		<el-table-column prop="remark" label="说明" width="500"></el-table-column>
+		<el-table-column prop="type" label="类型" width="100"></el-table-column>
+		<el-table-column prop="option" label="可选值" width="150"></el-table-column>
+		<el-table-column prop="default" label="默认值"></el-table-column>
+		</el-table>
+	</div>
+	<div>
+		<h4>form-x下使用用户控件</h4>
+		<el-form-x ref="userform" :group-fields="user.editFields" :buttons="user.buttons" label-width="100px"></el-form-x>
+	</div>
+	<div>
+		<h4>用户控件-说明(省略掉树的参数树的参数放入org对象中)</h4>
+		<el-table :data="user.param">
+		<el-table-column prop="name" label="参数名" width="150"></el-table-column>
+		<el-table-column prop="remark" label="说明" width="700"></el-table-column>
+		<el-table-column prop="type" label="类型" width="100"></el-table-column>
+		<el-table-column prop="option" label="可选值" width="150"></el-table-column>
+		<el-table-column prop="default" label="默认值"></el-table-column>
+		</el-table>
+	</div>
+
+	<!--<div>-->
+		<!--<h4>富文本测试</h4>-->
+		<!--<el-tinymce-x ref='tinymce' v-model='content' :height='height'></el-tinymce-x>-->
+		<!--<div class="btn">-->
+			<!--<el-button type="primary" @click='saveFn'>保存</el-button>-->
+			<!--<el-button type="primary" @click='setFn'>设定</el-button>-->
+		<!--</div>-->
+		<!--<textarea v-model='content' disabled></textarea>-->
+	<!--</div>-->
+
+	<!--<div>-->
+		<!--<h4>附件列表</h4>-->
+		<!--<el-upload style="display: inline-block;" action="https://jsonplaceholder.typicode.com/posts/"-->
+				<!--:on-preview="handlePreview"-->
+				<!--:on-remove="handleRemove"-->
+				<!--:file-list="fileList"-->
+				<!--:show-file-list="false"-->
+				<!--:multiple="true">-->
+			<!--<el-button>上传</el-button>-->
+		<!--</el-upload>-->
+		<!--<el-button>下载</el-button>-->
+		<!--<el-button>删除</el-button>-->
+		<!--<el-table-x ref="accessTable" :checkbox="true" :data-url="dataUrl"-->
+					<!--:table-columns="tableColumns"></el-table-x>-->
+	<!--</div>-->
+
+	<div>
+		<h3>附件表格</h3>
+		<yufp-upload-table></yufp-upload-table>
+	</div>
+
+	<div>
+		<h3>文件下载</h3>
+		<el-button @click="downloadFile">下载</el-button>
+	</div>
+
+</div>
+
+<style>
+	/*#bus-component .upload{display: inline-block;}*/
+</style>

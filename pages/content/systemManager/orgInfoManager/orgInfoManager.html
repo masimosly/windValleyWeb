@@ -1,0 +1,51 @@
+<div id="orgInfo">
+    <el-row :gutter="10">
+        <!--左侧机构树-->
+        <el-col :span="5">
+            <el-tree-x ref="mytree" @node-click="nodeClickFn" :show-checkbox="false" :height="height_org"
+                       :data-url="treeUrl" data-id="orgCode" data-label="orgName" style="margin-top: 10px"
+                       data-pid="upOrgId" :data-root="orgRootId" :root-visible="true"></el-tree-x>
+        </el-col>
+        <!--机构列表部分-->
+        <el-col :span="19">
+            <!--机构列表查询条件-->
+            <el-form-q form="query" :field-data="queryFileds"  search-table="mytable" ></el-form-q>
+            <div class="yu-toolBar">
+                <el-button-group>
+                    <el-button  icon="add" @click="openCreateFn" v-if="createButton">新增</el-button>
+                    <el-button  icon="edit" @click="openEditFn" v-if="editButton">修改</el-button>
+                    <el-button  icon="delete" @click="deletestFn" v-if="deleteButton">删除</el-button>
+                    <el-button  icon="edit" @click="useBatchFn" v-if="useButton">启用</el-button>
+                    <el-button  icon="edit" @click="unUseBatchFn" v-if="unuseButton">停用</el-button>
+                </el-button-group>
+            </div>
+            <!--机构列表-->
+            <el-table-x ref="mytable"
+                        :checkbox="mainGrid.checkbox" :max-height="mainGrid.height"
+                        :data-url="mainGrid.dataUrl" :data-params="mainGrid.dataParams" :table-columns="mainGrid.tableColumns"
+                        @custom-detail-click="openDetailFn" >
+            </el-table-x>
+        </el-col>
+    </el-row>
+    <!--机构信息维护页面-->
+    <el-dialog-x :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible"  height="360px" width="800px">
+                <el-collapse   v-model="activeName" accordion>
+                    <el-collapse-item title="机构信息" name="1">
+                        <el-form-x ref="myform"
+                                   :group-fields="updateFields"
+                                   :disabled="formDisabled" label-width="80px"></el-form-x>
+                    </el-collapse-item>
+                    <el-collapse-item title="扩展信息" name="2">
+                        <el-form-x ref="myform1"
+                                   :group-fields="updateFields2"
+                                   :disabled="formDisabled" label-width="80px"></el-form-x>
+                    </el-collapse-item>
+                </el-collapse>
+        <div slot="footer" align="center">
+            <el-button v-if="dialogStatus =='create'" type="primary" @click="resetTempFn()">重置</el-button>
+            <el-button v-if="dialogStatus =='update'" type="primary" @click="closeDialogFn()">取消</el-button>
+            <el-button v-if="dialogStatus=='create'" type="primary" @click="saveCreateFn()">确 定</el-button>
+            <el-button v-else-if="dialogStatus=='update'" type="primary" @click="saveEditFn()">确 定</el-button>
+        </div>
+    </el-dialog-x>
+</div>

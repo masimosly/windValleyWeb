@@ -1,0 +1,16 @@
+<!-- page必要拥有唯一的id -->
+<div class="container" id="step_01">
+    <form>
+        <fieldset>
+            <legend>路由演示-step-1</legend>
+            <label>Label name</label>
+            <input type="text" placeholder="Type something…" :duplex="text_value">
+            <span class="help-block">Example block-level help text here.</span>
+            <label class="checkbox" >
+                <input type="checkbox" v-model="checkbox_value" value="wo am i"> Check me out
+            </label>
+            <button type="button" class="btn" v-click="test" v-css="m_btn_test">测试</button>
+            <button type="button" class="btn" v-click="next" v-css="m_btn_next">下一步</button>
+        </fieldset>
+    </form>
+</div>

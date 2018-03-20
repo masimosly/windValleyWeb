@@ -1,0 +1,14 @@
+<!-- 必须全局拥有唯一id -->
+<div id="template_tablelist">
+    <el-collapse v-model="expandCollapseName">
+        <el-collapse-item title="基本信息" name="base">
+            <el-form-x ref="baseRef" :group-fields="baseFields" label-width="80px"></el-form-x>
+        </el-collapse-item>
+        <el-collapse-item title="列表信息" name="2">
+            <el-table-x ref="mytable" data-url="/trade/example/list" :table-columns="tableColumns"></el-table-x>
+        </el-collapse-item>
+    </el-collapse>
+    <div class="yu-grpButton">
+        <el-button type="primary" icon="yx-undo2">返回</el-button>
+    </div>
+</div>

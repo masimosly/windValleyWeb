@@ -1,0 +1,48 @@
+<!--
+  @created by wangyin 2018-01-04
+  @updated by
+  @description 系统主页面-左侧竖向菜单模式
+-->
+<div id="frame" class="yu-idxBody /*page-sidebar-closed*/">
+    <!--system menu，swiper、treeMenu sta-->
+    <div class="page-sidebar yu-idxMenu">
+        <div class="swiper-container yu-idxMenuSwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <!--user info sta-->
+                    <div class="yu-userInfo">
+                        <a id="yu-exit" class="yu-exit" href="javascript:void(0);" title="注销"><i class="el-icon-yx-switch"></i></a>
+                        <div><img id="userPic" src="themes/default/images/user_default_pic.png" title="..." /></div>
+                        <p><b id="userName"><i class="el-icon-yx-user"></i></b><span id="userRole"></span></p>
+                    </div>
+                    <!--user info end-->
+                    <!--sysTools sta-->
+                    <div id="yu-sysTools" class="yu-sysTools"></div>
+                    <!--sysTools end-->
+                    <!--menu info sta-->
+                    <ul class="page-sidebar-menu" id="_my_menu"></ul>
+                    <!--menu info end-->
+                </div>
+            </div>
+            <div class="swiper-scrollbar yu-idxMenuScrollbar"></div>
+        </div>
+    </div>
+    <!--system menu，swiper、treeMenu end-->
+
+    <!--mainBox sta-->
+    <div class="yu-mainBox">
+        <!-- idxTab sta -->
+        <div class="yu-idxTab">
+            <div class="yu-idxTabs" id="yu-idxTabs">
+                <div>
+                    <!--<a class="ck" href="javascript:void(0);" title="首页" data-key='0' onclick="yufp.frame.focusTab(0)" oncontextmenu="yufp.frame.tabContextmenu(0)">首页</a>-->
+                </div>
+            </div>
+            <div class="yu-idxTabBox" id="yu-idxTabBox">
+                <!--<div class="ck" data-key='0' id="_root_first"></div>-->
+            </div>
+        </div>
+        <!-- idxTab end -->
+    </div>
+    <!--mainBox end-->
+</div>

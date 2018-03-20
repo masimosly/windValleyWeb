@@ -1,0 +1,287 @@
+<!--
+ * @Authoer: dusong
+ * @Description:逻辑系统管理
+ * @Date 2017/12/5 14:16
+ * @Modified By:
+ *
+-->
+<div id="logicSys">
+    <!-- 逻辑系统查询框-->
+    <el-form-q form="query" :field-data="mainGrid.queryFileds" :buttons="mainGrid.queryButtons"></el-form-q>
+    <div class="yu-toolBar">
+        <el-button-group>
+            <el-button icon="plus" @click="openCreateFn">新增</el-button>
+            <el-button icon="edit" @click="handleModify('edit')">修改</el-button>
+            <el-button icon="delete" @click="handleModify('delete')">删除</el-button>
+            <el-button icon="edit" @click="setCrelStra">设置认证策略</el-button>
+            <el-button icon="edit" @click="setAuthInfo">配置认证信息</el-button>
+        </el-button-group>
+    </div>
+
+    <!-- 逻辑系统列表-->
+    <el-table-x ref="mytable"
+                :checkbox="false" :max-height="mainGrid.height"
+                :data-url="mainGrid.dataUrl" :data-params="mainGrid.dataParams" :table-columns="mainGrid.tableColumns"
+                @row-click="rowClickFn">
+    </el-table-x>
+
+    <!-- 逻辑系统编辑框-->
+    <el-dialog-x :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+                <el-form-x ref="myform"
+                           :group-fields="updateFields"
+                           :disabled="formDisabled" label-width="120px"></el-form-x>
+        <div slot="footer" class="dialog-footer" align="center">
+            <el-button icon="yx-undo2"  type="primary" @click="dialogFormVisible = false">关闭</el-button>
+            <el-button v-if="dialogStatus=='create'" icon="check"  type="primary" @click="saveCreateFn()">保存</el-button>
+            <el-button v-if="dialogStatus=='update'" icon="check"  type="primary" @click="saveEditFn()">保存</el-button>
+        </div>
+    </el-dialog-x>
+
+    <!-- 认证信息列表 -->
+    <el-dialog-x :title="textMap[dialogStatus]" :visible.sync="dialogAuthVisible" :before-close="closeAuthViewFn">
+       <!-- <el-form-q form="query2" :field-data="authGrid.queryFileds" :buttons="authGrid.queryButtons"></el-form-q>-->
+        <div class="yu-toolBar">
+            <el-button-group>
+                <el-button  icon="plus" @click="openAuthCreateFn">新增</el-button>
+                <el-button icon="edit" @click="handleAuthModify('edit')">修改</el-button>
+                <el-button icon="delete" @click="handleAuthModify('delete')">删除</el-button>
+            </el-button-group>
+        </div>
+
+        <el-table-x ref="mytableAuth"
+                    :checkbox="true" :max-height="authGrid.height"
+                    :data-url="authGrid.dataUrl" :data-params="authGrid.dataParams" :table-columns="authGrid.tableColumns"
+                     @row-click="rowClickFn">
+        </el-table-x>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button icon="yx-undo2"type="primary"  @click="closeAuthViewFn">关闭</el-button>
+        </div>
+    </el-dialog-x>
+
+    <!--认证信息编辑框-->
+    <el-dialog-x :title="textMap[dialogStatus]" :visible.sync="dialogAuthEditVisible">
+        <el-form-x ref="authDialogform"
+                   :group-fields="authGrid.updateFields"
+                   :disabled="formDisabled" label-width="120px"></el-form-x>
+        <div slot="footer" class="dialog-footer" align="center">
+            <el-button icon="yx-undo2" type="primary" @click="dialogAuthEditVisible = false">关闭</el-button>
+            <el-button icon="check" type="primary" @click="saveAuthEditFn()">保存</el-button>
+        </div>
+    </el-dialog-x>
+
+    <!--认证策略-->
+    <el-dialog-x :title="textMap[dialogStatus]" :visible.sync="dialogCrelVisible"  width="800px" height="400px">
+        <el-form  :model="crel"  ref="crel" :rules="rules" label="left"  :inline="true"  label-width="130px" style="margin-right: 1px; ">
+         <el-tabs v-model="crelTabs"  type="card" >
+            <el-tab-pane label="登录策略" name="loginTab">
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!-- 1/12-->
+                <el-col :span="8">
+                    <el-form-item  label="首次登陆策略">
+                        <el-checkbox v-model="crel.loginFirstRule.flag">启用</el-checkbox>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="16" >
+                    <el-form-item  label="首次登陆强制修改口令" label-width="190px">
+                        <el-radio-group  v-model="crel.loginFirstRule.passwdChgFlag" :disabled="!crel.loginFirstRule.flag">
+                            <el-radio label="1">是</el-radio>
+                            <el-radio label="0">否</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"> <!--2/12-->
+                <el-col :span="8">
+                    <el-form-item  label="登录IP策略">
+                    <el-checkbox v-model="crel.loginIpRule.flag">启用</el-checkbox>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="16" >
+                    <el-form-item  label="登录IP异常，认证管理执行" label-width="190px">
+                        <el-select  size="small" v-model="crel.loginIpRule.actionType"  style="width:100px;" :disabled="!crel.loginIpRule.flag">
+                            <el-option v-for="item in actionTypeOptions" :key="item.key" :value="item.key" :label="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--3/12-->
+                    <el-col :span="8">
+                        <el-form-item  label="在线用户数策略">
+                            <el-checkbox v-model="crel.loginUsernumRule.flag">启用</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="16" >
+	                    <el-form-item label="超过最大在线数" prop="maxUserNum">
+							<el-input v-model="crel.loginUsernumRule.maxUserNum" style="width: 100px;" :disabled="!crel.loginUsernumRule.flag"></el-input>
+							<span>，认证管理执行</span>
+						</el-form-item>
+						<el-form-item>
+							<el-select size="small" v-model="crel.loginUsernumRule.actionType" style="width:100px;" :disabled="!crel.loginUsernumRule.flag">
+								<el-option v-for="item in actionTypeOptions" :key="item.key" :value="item.key" :label="item.value" ></el-option>
+							</el-select>
+						</el-form-item>
+	                </el-col>
+            </el-row>
+
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--4/12-->
+                    <el-col :span="8">
+                        <el-form-item  label="登录时间段策略">
+                            <el-checkbox v-model="crel.loginTimeRule.flag">启用</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="16" >
+                    <el-form-item  label="工作日登录">
+                        <el-select  size="small" v-model="crel.loginTimeRule.workDayFlag" style="width: 85px;" :disabled="!crel.loginTimeRule.flag">
+                            <el-option v-for="item in yesnoOptions" :key="item.key" :value="item.key" :label="item.value"></el-option>
+                        </el-select>
+                          <span>时间段</span>
+                            <el-time-select style="width:90px;"
+                                    placeholder="起始时间"
+                                    v-model="crel.loginTimeRule.timeRule1"
+                                    :picker-options="{start: '00:00',step: '00:30',end: '23:59'}" :disabled="!crel.loginTimeRule.flag">
+                            </el-time-select>
+                            <el-time-select style="width:90px;" :disabled="!crel.loginTimeRule.flag"
+                                    placeholder="结束时间"
+                                    v-model="crel.loginTimeRule.timeRule2"
+                                    :picker-options="{start: '00:00',step: '00:30',end: '23:59',minTime: crel.loginTimeRule.timeRule1}">
+                            </el-time-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--12/12-->
+                <el-col :span="8">
+                    <el-form-item  label="多设备登陆策略">
+                        <el-checkbox v-model="crel.loginTimeMore.flag">启用</el-checkbox>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="16" >
+                    <el-form-item  label="同时登陆" label-width="190px">
+                        <el-select  size="small" v-model="crel.loginTimeMore.timesFlag" style="width: 85px;" :disabled="!crel.loginTimeMore.flag">
+                            <el-option v-for="item in yesnoOptions" :key="item.key" :value="item.key" :label="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+
+                </el-col>
+            </el-row>
+            </el-tab-pane>
+
+            <el-tab-pane label="密码策略" name="passwordTab">
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--5/12-->
+                    <el-col :span="8">
+                        <el-form-item  label="强制修改口令策略">
+                            <el-checkbox v-model="crel.passwdChangeRule.flag">启用</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="16" >
+                    <el-form-item  label="密码有效期" prop="passwdValidDay">
+                            <el-input v-model="crel.passwdChangeRule.passwdValidDay" style="width: 50px;" :disabled="!crel.passwdChangeRule.flag"></el-input>
+                            <span>天到期，认证管理执行</span>
+                    </el-form-item>
+                    <el-form-item>
+                    	    <el-select  size="small" v-model="crel.passwdChangeRule.actionType " style="width:100px;" :disabled="!crel.passwdChangeRule.flag">
+                                <el-option v-for="item in actionTypeOptions" :key="item.key" :value="item.key" :label="item.value"></el-option>
+                            </el-select>
+                    </el-form-item>
+                    </el-col>
+            </el-row>
+
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--6/12-->
+                    <el-col :span="8">
+                        <el-form-item  label="口令复杂度策略">
+                            <el-checkbox v-model="crel.passwdComplexRule.flag">启用</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="16" >
+                    <el-form-item  label="口令必须包含"  prop="type">
+                            <el-checkbox-group v-model="crel.passwdComplexRule.needFlag">
+                                <el-checkbox label="number" :disabled="!crel.passwdComplexRule.flag">数字</el-checkbox>
+                                <el-checkbox label="upperchar" :disabled="!crel.passwdComplexRule.flag">大写字母</el-checkbox>
+                                <el-checkbox label="lowerchar" :disabled="!crel.passwdComplexRule.flag">小写字母</el-checkbox>
+                                <el-checkbox label="specchar" :disabled="!crel.passwdComplexRule.flag">特殊字符</el-checkbox>
+                            </el-checkbox-group>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row  style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--7/12-->
+                    <el-col :span="8">
+                        <el-form-item  label="口令错误策略">
+                            <el-checkbox v-model="crel.passwdErrorRule.flag">启用</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="16" >
+                    <el-form-item  label="最大错误次数" prop="passwdTryMax">
+                            <el-input v-model="crel.passwdErrorRule.passwdTryMax" style="width: 50px;" :disabled="!crel.passwdErrorRule.flag"></el-input>
+                            <span>，认证管理执行</span>
+                    </el-form-item>
+                    <el-form-item>
+                    		<el-select  size="small" v-model="crel.passwdErrorRule.actionType" style="width: 100px;" :disabled="!crel.passwdErrorRule.flag">
+                                <el-option v-for="item in actionTypeOptions" :key="item.key" :value="item.key" :label="item.value"></el-option>
+                            </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--8/12-->
+                    <el-col :span="8">
+                        <el-form-item  label="口令长度策略">
+                            <el-checkbox ref="check" v-model="crel.passwdLengthRule.flag">启用</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="16" >
+                    <el-form-item  label="口令最短长度" label-width="190px" prop="passwdLengthMin">
+                        <el-input v-model="crel.passwdLengthRule.passwdLengthMin" style="width: 50px;" :disabled="!crel.passwdLengthRule.flag"></el-input>
+                    </el-form-item>
+                    </el-col>
+            </el-row>
+
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--9/12-->
+               <el-col :span="8">
+                        <el-form-item  label="口令重复历史策略">
+                            <el-checkbox v-model="crel.passwdRepetchgRule.flag">启用</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="16" >
+                    <el-form-item  label="最近重复历史数" label-width="190px" prop="passwdRepetchgLastTimes">
+                        <el-input v-model="crel.passwdRepetchgRule.passwdRepetchgLastTimes" style="width: 50px;" :disabled="!crel.passwdRepetchgRule.flag"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--10/12-->
+                    <el-col :span="8">
+                        <el-form-item ref="check1"  label="口令不重复长度">
+                            <el-checkbox v-model="crel.passwdRepetnumberRule.flag">启用</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="16" >
+                    <el-form-item  label="口令禁止重复字符数" label-width="190px" prop="passwdRepetnumber">
+                        <el-input v-model="crel.passwdRepetnumberRule.passwdRepetnumber" style="width: 50px;" :disabled="!crel.passwdRepetnumberRule.flag"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row  style="border-bottom:1px solid #bfdaee;margin-top: 20px;"><!--11/12-->
+                <el-col :span="8">
+                    <el-form-item  label="口令连续长度策略">
+                        <el-checkbox v-model="crel.passwdSequnnumberRule.flag">启用</el-checkbox>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="16" >
+                    <el-form-item  label="口令禁止连续字符数" label-width="190px" prop="passwdSequnnumber">
+                        <el-input v-model="crel.passwdSequnnumberRule.passwdSequnnumber" style="width: 50px;" :disabled="!crel.passwdSequnnumberRule.flag"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            </el-tab-pane>
+            </el-tabs>
+
+        </el-form>
+        <div slot="footer" align="center">
+            <el-button icon="yx-undo2" type="primary" @click="dialogCrelVisible = false">关闭</el-button>
+            <el-button icon="check" type="primary" @click="saveCrelEditFn('crel')">保存</el-button>
+        </div>
+    </el-dialog-x>
+</div>

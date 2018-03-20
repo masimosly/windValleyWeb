@@ -1,0 +1,34 @@
+/**
+ * @created by jiangcheng 2017-11-15
+ * @updated by
+ * @description 登录页
+ */
+#login{width:100%;height:100%;margin:0;padding:0;overflow:hidden;font-size:12px;color:#333; outline:0;background:url(../../../themes/common/images/pic_02.jpg) center center;background-size: cover;}
+#login div,#login ul,#login li,#login h1{margin:0;padding:0;list-style:none}*{font-family:微软雅黑,宋体;}
+#login .yu-headerContainer{display:block; background-color:#fff;height: 80px;border-bottom: 1px #e3e4e5 solid;}
+#login .yu-headerContainer .logo{float:left; margin-top:5px; background: url(../../../themes/common/images/pic_00.png) left center no-repeat;padding-left: 156px;margin-left: 20px;font-size: 24px;height: 67px;line-height: 67px;position: relative;}
+#login .yu-bottomBar{position:absolute;z-index:1;bottom:0;width:100%;text-align:center;height:42px;line-height:42px;font-size:12px;color:#7e84b1;text-shadow:0 1px 0 #000;background: url(../../../themes/common/images/pic_03.png);}
+#login .yu-loginBox{position:absolute;z-index:2; width:320px;height:320px;left:50%;top:50%;margin-left:-160px;margin-top:-140px;background-color: #fff;-webkit-box-shadow:0 0 3px #333;box-shadow:0 2px 5px #333;overflow:hidden;}
+#login .yu-loginBox>h1{display:block;height:54px;line-height:54px; background-color: #0060e3;font-size: 20px;font-weight: normal;text-align: center;color: #fff;}
+#login .yu-loginBox>ul{display:block;margin:20px 25px 0 25px;}
+#login .yu-loginBox>ul>li{padding:10px 0;position:relative;}
+#login .yu-loginBox>ul>li>i{display:block;position:absolute;width:30px;height:16px;line-height:16px;left:8px;top:25px;text-align:center;color:#bbb;font-size:16px;border-right: 1px #e5e5e5 solid;}
+#login .yu-lbTxt,.yu-lbBt{display:block;width:270px;border:0;outline:0;transition: .2s;}
+#login .yu-lbTxt{width:266px;font-size:14px;border:1px #d0d0d0 solid;background-color:#fff;height:40px;line-height:42px;vertical-align:middle;border-radius:20px;text-indent:45px;behavior: url(PIE.htc);}
+#login .yu-lbBt{background-color:#0060e3;height:42px;border-radius:21px;color:#fff;font-size:18px;position:relative; behavior: url(PIE.htc);}
+#login .yu-lbTxt:focus{border-color:#0060e3;}
+#login .yu-lbTxt:focus+i{color:#0060e3;}
+#login .yu-lbBt:hover{background-color:#2c85fe;}
+#login .yu-lbBt:active{background-color:#0052c2;}
+#login .yu-loginBox>ul>li>a:link,.yu-loginBox>ul>li>a:visited{font-size:12px;color:#666;text-decoration:none;outline:0;}
+#login .yu-loginBox>ul>li>a:hover{color:#0060e3;text-decoration:none;}
+#login .yu-loginBox>ul>li>a:active{color:#666;}
+#login .yu-loginMsg{display: none; color: #ff4949;}
+#login .yu-loginMsg:before{margin-right: 5px;}
+
+#login .logo>span{padding-right: 16px;background: url(../../../themes/default/images/pic_02.gif) right center no-repeat;cursor: pointer;}
+#login .logo>span.ck{background: url(../../../themes/default/images/pic_02_1.gif) right center no-repeat;}
+#login .logo>span+ul{display:none;border-radius: 3px; position: absolute;top:55px;right: 0; width: auto;line-height: 29px;z-index: 10;background-color: #fff;border: 1px solid #d1dbe5 ;height: auto;max-height: 240px; box-shadow:0 2px 4px rgba(0,0,0,.2);}
+#login .logo>span+ul>li{display: block;clear: left;cursor:pointer; position:relative; padding: 0 15px; text-align: left;height: 29px;line-height:29px;border-bottom:0px solid #bfdaee;font-size: 12px;color: #666; transition: .2s;overflow: hidden; text-overflow: ellipsis;white-space: nowrap;}
+#login .logo>span+ul>li:hover{color: #20a0ff;background-color: #e4e8f1;}
+/*login end*/

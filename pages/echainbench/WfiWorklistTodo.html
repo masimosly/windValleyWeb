@@ -1,0 +1,12 @@
+
+<!-- 必须全局拥有唯一的id -->
+<div id="WfiWorklistTodo">
+    <el-input placeholder="请输入内容"  v-model="query.input" @keyup.enter.native="doSearchFn"  style="width: 600px;">
+        <el-select  slot="prepend" v-model="query.select" placeholder="请选择" clearable  style="width: 130px;">
+            <el-option v-for="item in typeOptions" :key="item.key" :value="item.key" :label="item.value"></el-option>
+        </el-select>
+        <el-button slot="append" icon="search" @click="doSearchFn"></el-button>
+    </el-input>
+    <el-table-x ref="WfiWorklistTodoList"  :data-url="urls.dataUrl" :data-params="dataParams" :table-columns="tableColumns"
+    ></el-table-x>
+</div>

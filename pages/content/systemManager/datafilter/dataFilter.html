@@ -1,0 +1,32 @@
+<div id="dataauthtmpl_grid">          
+	<el-form-q :field-data="queryFields" :buttons="queryButtons"></el-form-q>
+	
+    <div class="yu-toolBar">
+        <el-button-group>
+            <el-button  icon="plus" @click="addFilterRecord">新增</el-button>
+            <el-button  icon="edit" @click="lookuptableEditFn">修改</el-button>
+            <el-button  icon="delete" @click="dataFiltermultDeleteFn">删除</el-button>
+         </el-button-group>
+    </div>
+
+	
+	
+	<el-table-x ref="filterTable" :checkbox="true" :max-height="height"
+        :data-url="serviceUrl" :table-columns="tableColumns" @select="rowClickFn">
+	</el-table-x>
+	
+
+	<el-dialog title="数据权限模板" :visible.sync="dialogVisible" :close-on-click-modal="false">
+        <el-form-x ref="datafilterForm"
+                   :group-fields="updateFields" :buttons="updateButtons"
+                   :disabled="formDisabled" label-width="120px"></el-form-x>
+    </el-dialog>
+    
+    
+   <!-- <el-dialog title="可用控制点" :visible.sync="tmplDialogVisible" @open="tmplShow">
+		<el-table-x ref="contrlTable" :checkbox="true" :data-url="contrUrl" :table-columns="contrlTableColumns" @select="contrlSelete" :default-load=false></el-table-x>
+		<el-form-x ref="tmp" :buttons="selectionButton"
+                   :disabled="false" label-width="80px"></el-form-x>
+	</el-dialog>-->
+      
+</div>

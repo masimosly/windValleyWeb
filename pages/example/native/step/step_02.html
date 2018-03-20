@@ -1,0 +1,12 @@
+<!-- page必要拥有唯一的id -->
+<div  class="container" id="step_02">
+    <legend>路由演示-step-2</legend>
+    <span :class="@m_title_cls" :visible="@m_subStep.length>0">当前子页面为[{{@m_subStep}}]</span>
+    <label class="radio" :for="(index,item) in @m_btn_radios">
+        <input type="radio" name="optionsRadios" value="item.value" :on-click="@to(item.value)">
+        Option{{index}}{{item.text}}
+    </label>
+    <div id="_stepDiv">
+
+    </div>
+</div>
